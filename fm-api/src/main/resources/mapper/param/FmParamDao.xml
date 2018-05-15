@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.jctl.dao.FmParamDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="cn.jctl.entity.FmParamEntity" id="fmParamMap">
+        <result property="id" column="id"/>
+        <result property="paramName" column="param_name"/>
+        <result property="unit" column="unit"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+    <select id="selectAll" resultType="cn.jctl.entity.FmParamEntity">
+        SELECT * FROM fm_param;
+    </select>
+</mapper>

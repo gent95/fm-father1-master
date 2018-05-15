@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.jctl.modules.node.dao.FmNodeDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="cn.jctl.modules.node.entity.FmNodeEntity" id="fmNodeMap">
+        <result property="id" column="id"/>
+        <result property="nodeName" column="node_name"/>
+        <result property="nodeLon" column="node_lon"/>
+        <result property="nodeLat" column="node_lat"/>
+        <result property="riverId" column="river_id"/>
+        <result property="relayId" column="relay_id"/>
+        <result property="nodemac" column="nodeMac"/>
+        <result property="nodemaclen" column="nodeMacLen"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+
+</mapper>

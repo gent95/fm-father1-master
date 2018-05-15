@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jctl.modules.sys.dao.UserDao">
+    <update id="update" parameterType="cn.jctl.modules.sys.entity.UserEntity">
+        UPDATE sys_user SET `names`=#{names},age=#{age},address=#{address},mobile=#{mobile} WHERE user_id=#{userId}
+    </update>
+
+    <select id="info" parameterType="java.lang.Long" resultType="cn.jctl.modules.sys.entity.UserEntity">
+        SELECT * FROM sys_user WHERE user_id=#{userId}
+    </select>
+
+</mapper>

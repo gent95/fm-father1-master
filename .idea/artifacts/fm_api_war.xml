@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="fm-api:war">
+    <output-path>$PROJECT_DIR$/fm-api/target</output-path>
+    <root id="archive" name="fm-api.war">
+      <element id="artifact" artifact-name="fm-api:war exploded" />
+    </root>
+  </artifact>
+</component>

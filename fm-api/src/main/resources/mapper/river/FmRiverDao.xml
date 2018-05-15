@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jctl.dao.FmRiverDao">
+    <select id="getRiverList" resultType="cn.jctl.river.entity.FmRiverEntity">
+        SELECT * FROM fm_river
+    </select>
+
+    <select id="getNodeListById" parameterType="java.lang.Integer" resultType="cn.jctl.river.entity.FmNodeEntity">
+        SELECT * FROM fm_node WHERE river_id=#{riverId}
+    </select>
+
+    <insert id="addRiver" parameterType="cn.jctl.river.entity.FmRiverNodeEntity">
+        INSERT INTO fm_river SET river_number=#{riverNumber},river_name=#{riverName},river_area=#{riverArea},river_address=#{riverAddress},river_manager=#{riverManager},river_url=#{riverUrl},create_time=#{createTime}
+    </insert>
+
+    <delete id="deleteRiver" parameterType="java.lang.Long">
+        DELETE FROM fm_river WHERE river_id=#{riverId}
+    </delete>
+
+    <select id="getWaterareaInfo" resultType="cn.jctl.river.entity.FmWaterareaEntity">
+        SELECT fr.river_id,fr.river_number,fr.river_name,fr.river_address,fr.river_area,fr.river_manager,fr.river_url,fn.node_lat,fn.id nodeId,fn.node_lon,COUNT(fn.id) nodeNum,fn.node_number
+FROM fm_river fr,fm_node fn
+WHERE fr.river_id=fn.river_id
+GROUP BY fr.river_id
+    </select>
+
+    <select id="getRiverId" resultType="java.lang.Long">
+        SELECT LAST_INSERT_ID()
+    </select>
+
+    <insert id="addNode" parameterType="cn.jctl.river.entity.FmNodeEntity">
+        INSERT INTO fm_node SET node_number=#{nodeNumber},node_lon=#{nodeLon},node_lat=#{nodeLat},river_id=#{riverId},create_time=#{createTime}
+    </insert>
+
+    <update id="updateRiver" parameterType="cn.jctl.river.entity.FmRiverNodeEntity">
+        UPDATE fm_river SET river_number=#{riverNumber},river_name=#{riverName},river_address=#{riverAddress},river_area=#{riverArea},river_manager=#{riverManager},river_url=#{riverUrl} WHERE river_id=#{riverId}
+    </update>
+
+    <update id="updateNode" parameterType="cn.jctl.river.entity.FmNodeEntity">
+        UPDATE fm_node SET node_number=#{nodeNumber},node_lon=#{nodeLon},node_lat=#{nodeLat},river_id=#{riverId} WHERE id=#{id}
+    </update>
+
+    <delete id="deleteNode" parameterType="java.lang.Long">
+        DELETE FROM fm_node WHERE id=#{nodeId}
+    </delete>
+
+    <select id="getRiverOne" parameterType="java.lang.Long" resultType="cn.jctl.river.entity.FmWaterareaEntity">
+        SELECT fr.river_id,fr.river_number,fr.river_name,fr.river_address,fr.river_area,fr.river_manager,fr.river_url,fn.node_lat,fn.id nodeId,fn.node_lon,COUNT(fn.id) nodeNum,fn.node_number
+        FROM fm_river fr,fm_node fn
+        WHERE fr.river_id=fn.river_id AND fr.river_id=#{riverId}
+        GROUP BY fr.river_id
+    </select>
+</mapper>

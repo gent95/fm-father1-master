@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jctl.modules.param.dao.FmParamDao">
+    <select id="getParamById" parameterType="java.lang.Integer" resultType="cn.jctl.modules.param.entity.FmParamEntity">
+        SELECT r.river_name,r.river_area,r.river_url,
+n.node_name,n.node_lat,n.node_lon,
+s.type ,
+p.param_name,p.unit,
+c.`data`
+FROM fm_river r
+LEFT JOIN fm_node n on r.river_id=n.river_id
+LEFT JOIN fm_sensor s on n.id=s.node_id
+LEFT JOIN fm_collect c on c.sensor_id=s.id
+LEFT JOIN fm_param p on p.id = c.param_id
+where r.river_id =#{riverId} and n.id =#{nodeId};
+    </select>
+</mapper>

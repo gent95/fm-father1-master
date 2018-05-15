@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jctl.modules.river.dao.FmRiverDao">
+    <select id="getRiverList" resultType="cn.jctl.modules.river.entity.FmRiverEntity">
+        SELECT * FROM fm_river
+    </select>
+
+    <select id="getNodeListById" parameterType="java.lang.Integer" resultType="cn.jctl.modules.node.entity.FmNodeEntity">
+        SELECT * FROM fm_node WHERE river_id=#{riverId}
+    </select>
+
+    <insert id="addRiver" parameterType="cn.jctl.modules.river.entity.FmRiverEntity">
+        INSERT INTO fm_river SET river_name=#{riverName},river_area=#{riverArea},river_url=#{riverUrl},create_time=#{createTime}
+    </insert>
+
+    <delete id="deleteRiver" parameterType="java.lang.Integer">
+        DELETE FROM fm_river WHERE river_id=#{riverId}
+    </delete>
+</mapper>

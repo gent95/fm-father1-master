@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jctl.dao.AnalysisDao">
+    <select id="getParam" parameterType="cn.jctl.datal.entity.FormEntity" resultType="cn.jctl.datal.entity.DataEntity">
+        SELECT fc.`data`,fc.create_time,fp.param_name,fp.unit
+FROM fm_river fr LEFT JOIN fm_node fn
+ON fn.river_id=fr.river_id
+LEFT JOIN fm_sensor fs
+ON fs.node_id=fn.id
+LEFT JOIN fm_collect fc
+ON fc.sensor_id=fs.id
+LEFT JOIN fm_param fp
+ON fp.id=fc.param_id
+WHERE fr.river_id=#{riverId} AND fn.id=(SELECT fn.id FROM fm_node fn WHERE fn.river_id=#{riverId} GROUP BY fn.river_id) AND fc.param_id=#{paramId} AND fs.type=#{type} AND fc.create_time BETWEEN #{createTimel} AND #{endTimel}
+    </select>
+
+    <select id="getParamList" resultType="cn.jctl.datal.entity.ParamEntity">
+        SELECT fp.id,fp.param_name
+FROM fm_river fr
+LEFT JOIN fm_node fn
+ON fr.river_id=fn.river_id
+LEFT JOIN fm_sensor fs
+ON fn.id=fs.node_id
+LEFT JOIN fm_collect fc
+ON fc.sensor_id=fs.id
+LEFT JOIN fm_param fp
+ON fp.id=fc.param_id
+WHERE fr.river_id=#{riverId} AND fs.type=#{type}
+GROUP BY fn.river_id,fc.param_id
+    </select>
+</mapper>
